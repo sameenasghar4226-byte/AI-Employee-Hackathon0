@@ -193,9 +193,42 @@ Vault path: {VAULT}
 
 # ── Main loop ───────────────────────────────────────────────────────────────
 
+def generate_weekly_audit():
+    """Generate a weekly business + accounting audit every Monday at 8am."""
+    audit_file = VAULT / "Briefings" / f"{date.today().isoformat()}_Weekly_Audit.md"
+    if audit_file.exists():
+        return
+
+    prompt = f"""Generate a weekly business and accounting audit for the week ending {date.today().isoformat()}.
+
+Read the following:
+- Business_Goals.md — goals and revenue targets
+- Logs/ — all log files from the past 7 days
+- Done/ — all completed tasks this week
+- Accounting/ — any financial records
+- Briefings/ — daily briefings from this week
+
+Write the audit to: Briefings/{date.today().isoformat()}_Weekly_Audit.md
+
+Include:
+## Weekly Executive Summary
+## Revenue This Week (vs Target)
+## Tasks Completed This Week
+## Tasks Still Pending
+## Bottlenecks Identified
+## Subscription & Cost Audit
+## Error & System Health Report
+## Recommendations for Next Week
+
+Vault path: {VAULT}
+"""
+    trigger_claude(prompt)
+
+
 def main(interval: int = 60):
     logger.info(f"Orchestrator starting | Vault: {VAULT} | DRY_RUN: {DRY_RUN}")
     last_briefing_check = None
+    last_weekly_audit_check = None
 
     while True:
         try:
@@ -208,11 +241,17 @@ def main(interval: int = 60):
             # Process approved actions
             process_approved()
 
-            # Daily briefing (check once per minute, runs once per day)
             now = datetime.now()
+
+            # Daily briefing at 8am (once per day)
             if now.hour >= 8 and last_briefing_check != date.today():
                 generate_daily_briefing()
                 last_briefing_check = date.today()
+
+            # Weekly audit every Monday at 8am
+            if now.weekday() == 0 and now.hour >= 8 and last_weekly_audit_check != date.today():
+                generate_weekly_audit()
+                last_weekly_audit_check = date.today()
 
         except Exception as e:
             logger.error(f"Orchestrator error: {e}", exc_info=True)
