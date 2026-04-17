@@ -49,11 +49,13 @@ External Sources (Gmail, WhatsApp, Bank, Files)
   External Actions (Send Email, Post, Pay)
 ```
 
-## Tier Progress
+## Tier Declaration
 
-- [x] **Bronze** — Vault structure, filesystem watcher, Claude integration, CLAUDE.md
-- [ ] **Silver** — Gmail watcher, WhatsApp watcher, LinkedIn posting, Email MCP
-- [ ] **Gold**  — Full cross-domain integration, Odoo accounting, CEO Briefing, Ralph Wiggum loop
+**Submitting as: Gold Tier**
+
+- [x] **Bronze** — Obsidian vault, Dashboard.md, Company_Handbook.md, filesystem watcher, Claude Code integration
+- [x] **Silver** — Gmail OAuth watcher, daily CEO briefings, human-in-the-loop approval workflow, watchdog process manager, audit logging
+- [x] **Gold** — Instagram watcher (Playwright), Ralph Wiggum Stop Hook, error recovery + retry logic, weekly business audit, 6 Agent Skills, architecture documentation
 - [ ] **Platinum** — Cloud 24/7, multi-agent, A2A communication
 
 ## Key Files
@@ -67,8 +69,12 @@ External Sources (Gmail, WhatsApp, Bank, Files)
 | `scripts/orchestrator.py` | Master process — triggers Claude, watches folders |
 | `scripts/filesystem_watcher.py` | Monitors Drop/ folder |
 | `scripts/gmail_watcher.py` | Monitors Gmail inbox |
+| `scripts/instagram_watcher.py` | Monitors Instagram DMs + posts content |
+| `scripts/ralph_wiggum.py` | Claude Code Stop Hook — keeps Claude working until done |
+| `scripts/retry_handler.py` | Error recovery, retry logic, graceful degradation |
 | `scripts/watchdog_process.py` | Keeps all processes alive |
 | `scripts/audit_logic.py` | Subscription/cost analysis |
+| `ARCHITECTURE.md` | Full system architecture and lessons learned |
 
 ## Security Rules
 - **Never** put credentials in vault .md files
