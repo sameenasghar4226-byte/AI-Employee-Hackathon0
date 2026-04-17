@@ -443,7 +443,7 @@ def _log_event(action_type: str, details: dict):
     log_file = LOGS / f"{datetime.now().date().isoformat()}.json"
     LOGS.mkdir(exist_ok=True)
     try:
-        entries = json.loads(log_file.read_text()) if log_file.exists() else []
+        entries = json.loads(log_file.read_text(encoding="utf-8")) if log_file.exists() else []
         entries.append({
             "timestamp": datetime.now().isoformat(),
             "action_type": action_type,
