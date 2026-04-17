@@ -67,7 +67,7 @@ def update_dashboard():
     log_file = VAULT / "Logs" / f"{date.today().isoformat()}.json"
     if log_file.exists():
         try:
-            entries = json.loads(log_file.read_text())[-5:]
+            entries = json.loads(log_file.read_text(encoding="utf-8"))[-5:]
             for e in reversed(entries):
                 ts = e.get("timestamp", "")[:16]
                 atype = e.get("action_type", "")
