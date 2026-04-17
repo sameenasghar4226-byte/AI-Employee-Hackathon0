@@ -450,7 +450,7 @@ def _log_event(action_type: str, details: dict):
             "actor": "InstagramWatcher",
             **details
         })
-        log_file.write_text(json.dumps(entries, indent=2))
+        log_file.write_text(json.dumps(entries, indent=2), encoding="utf-8")
     except Exception as e:
         logger.error(f"Could not write log: {e}")
 
