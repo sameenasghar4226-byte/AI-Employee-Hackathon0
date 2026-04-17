@@ -31,6 +31,8 @@ MANAGED_PROCESSES = {
     "filesystem_watcher": [sys.executable, str(SCRIPTS / "filesystem_watcher.py")],
     # Gmail watcher (credentials configured)
     "gmail_watcher": [sys.executable, str(SCRIPTS / "gmail_watcher.py")],
+    # Instagram watcher — uncomment after running: python instagram_watcher.py --setup
+    # "instagram_watcher": [sys.executable, str(SCRIPTS / "instagram_watcher.py"), "--check"],
 }
 
 running_processes: dict = {}
